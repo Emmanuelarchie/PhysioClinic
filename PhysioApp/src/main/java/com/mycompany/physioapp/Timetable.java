@@ -15,8 +15,8 @@ import java.util.Map;
 public class Timetable {
     Map<LocalDate, List> appointments;
     
-    Public Timetable () {
-     this.appointments = newHashMap<>();
+    public Timetable() {
+     this.appointments = new HashMap<>();
    }
     
     public void addAppointment( LocalDate date, Appointment appointment)
