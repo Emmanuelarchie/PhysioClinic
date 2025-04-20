@@ -75,70 +75,67 @@ public class PhysioApp {
         System.out.print("Choose an option: ");
         int option = Integer.parseInt(scanner.nextLine());
 
-        switch (option) {
-            case 1 -> {
-                System.out.print("Enter expertise: ");
-                String expertise = scanner.nextLine();
-                System.out.print("Enter date (yyyy-MM-dd): ");
-                LocalDate date = LocalDate.parse(scanner.nextLine());
-                System.out.print("Enter time (HH:mm): ");
-                LocalTime time = LocalTime.parse(scanner.nextLine());
-                System.out.print("Enter patient name: ");
-                
-                String patientName = scanner.nextLine();
-               
-                Patient patient = (Patient) clinic.patients.stream()
-                        .filter(p -> p.equals(patientName))
-                        .findFirst()
-                        .orElse(null);
-                if (patient != null) {
-                    clinic.bookAppointmentByExpertise(expertise, patient, date, time);
-                } else {
-                    System.out.println("Patient not found!");
-                }
-                }
-            case 2 -> {
-                System.out.print("Enter physiotherapist name: ");
-                String physioName = scanner.nextLine();
-                System.out.print("Enter date (yyyy-MM-dd): ");
-                LocalDate date2 = LocalDate.parse(scanner.nextLine());
-                System.out.print("Enter time (HH:mm): ");
-                LocalTime time2 = LocalTime.parse(scanner.nextLine());
-                System.out.print("Enter patient name: ");
-                String patientName2 = scanner.nextLine();
-                
-                patient1 = (Patient)clinic.patients.stream()
-                        .filter(p -> p.equals(patientName2))
-                        .findFirst()
-                        .orElse(null);
-                if (patient1 != null) {
-                    clinic.bookAppointmentByPhysiotherapist(physioName, patient2, date2, time2);
-                } else {
-                    System.out.println("Patient not found!");
-                }
-                }
-                
-            case 3 -> {
-                System.out.print("Enter patient name: ");
-                String patientName3 = scanner.nextLine();
-                patient3 = (Patient) clinic.patients.stream()
-                        .filter(p -> p.equals(patientName3))
-                        .findFirst()
-                        .orElse(null);
-                if (patient3 != null) {
+    switch (option) {
+                case 1 -> {
+                    System.out.print("Enter expertise: ");
+                    String expertise = scanner.nextLine();
                     System.out.print("Enter date (yyyy-MM-dd): ");
-                    LocalDate date3 = LocalDate.parse(scanner.nextLine());
+                    LocalDate date = LocalDate.parse(scanner.nextLine());
                     System.out.print("Enter time (HH:mm): ");
-                    LocalTime time3 = LocalTime.parse(scanner.nextLine());
-                    clinic.cancelAppointment(patient3, date3, time3);
-                } else {
-                    System.out.println("Patient not found!");
+                    LocalTime time = LocalTime.parse(scanner.nextLine());
+                    System.out.print("Enter patient name: ");
+                    String patientName = scanner.nextLine();
+
+                    Patient patient = clinic.getPatientByName(patientName);
+                    if (patient != null) {
+                        clinic.bookAppointmentByExpertise(expertise, patient, date, time);
+                    } else {
+                        System.out.println("Patient not found!");
+                    }
                 }
+
+                case 2 -> {
+                    System.out.print("Enter physiotherapist name: ");
+                    String physioName = scanner.nextLine();
+                    System.out.print("Enter date (yyyy-MM-dd): ");
+                    LocalDate date2 = LocalDate.parse(scanner.nextLine());
+                    System.out.print("Enter time (HH:mm): ");
+                    LocalTime time2 = LocalTime.parse(scanner.nextLine());
+                    System.out.print("Enter patient name: ");
+                    String patientName2 = scanner.nextLine();
+
+                    Patient patient = clinic.getPatientByName(patientName2);
+                    if (patient != null) {
+                        clinic.bookAppointmentByphysiotherapist(physioName, patient, date2, time2);
+                    } else {
+                        System.out.println("Patient not found!");
+                    }
                 }
-            case 4 -> clinic.generateReport();
-            case 5 -> System.exit(0);
-            default -> System.out.println("Invalid option. Please choose again.");
+
+                case 3 -> {
+                    System.out.print("Enter patient name: ");
+                    String patientName3 = scanner.nextLine();
+                    Patient patient = clinic.getPatientByName(patientName3);
+                    if (patient != null) {
+                        System.out.print("Enter date (yyyy-MM-dd): ");
+                        LocalDate date3 = LocalDate.parse(scanner.nextLine());
+                        System.out.print("Enter time (HH:mm): ");
+                        LocalTime time3 = LocalTime.parse(scanner.nextLine());
+                        clinic.cancelAppointment(patient, date3, time3);
+                    } else {
+                        System.out.println("Patient not found!");
+                    }
+                }
+
+                case 4 -> clinic.generateReport();
+
+                case 5 -> {
+                    System.out.println("Exiting...");
+                    System.exit(0);
+                }
+
+                default -> System.out.println("Invalid option. Please choose again.");
+            }
         }
     }
-}
-}
+}    
