@@ -88,8 +88,9 @@ public class PhysioApp {
             System.out.println("\n1. Book by Expertise");
             System.out.println("2. Book by Physiotherapist");
             System.out.println("3. Cancel Appointment");
-            System.out.println("4. Generate Report");
-            System.out.println("5. Exit");
+            System.out.println("4. Attend Appointment");
+            System.out.println("5. Generate Appointment");
+            System.out.println("6. Exit");
             System.out.print("Choose an option: ");
 
             String input = scanner.nextLine();
@@ -173,8 +174,31 @@ public class PhysioApp {
                         System.out.println("Patient not found!");
                     }
                 }
-                case 4 -> clinic.generateReport();
-                case 5 -> {
+                
+                case 4 -> {
+                    System.out.print("Enter patient name: ");
+                    String patientName = scanner.nextLine();
+                    patient = clinic.getPatientByName(patientName);
+                    if (patient != null) {
+                        LocalDate date;
+                        LocalTime time;
+                        try {
+                            System.out.print("Enter date (yyyy-MM-dd): ");
+                            date = LocalDate.parse(scanner.nextLine());
+                            System.out.print("Enter time (HH:mm): ");
+                            time = LocalTime.parse(scanner.nextLine());
+                        } catch (DateTimeParseException e) {
+                            System.out.println("Invalid date or time format.");
+                            continue;
+                        }
+                        clinic.attendAppointment(patient, date, time);
+                    } else {
+                        System.out.println("Patient not found!");
+                    }
+                }
+                case 5 -> clinic.generateReport();
+                
+                case 6 -> {
                     System.out.println("Exiting...");
                     return;
                 }
