@@ -33,6 +33,10 @@ public class Clinic {
     public void addPhysiotherapist(Physiotherapist physio) {
         physiotherapist.add(physio);
     }
+    
+    public List<Physiotherapist> getPhysios(){
+        return physiotherapist;
+    }
 
     public boolean addPatient(Patient newPatient) {
         for (Patient p : patients) {
@@ -48,6 +52,10 @@ public class Clinic {
 
     public void removePatient(Patient patient) {
         patients.remove(patient);
+    }
+    
+    public List<Patient> getPatient(){
+        return patients;
     }
 
     public void bookAppointmentByExpertise(String expertise, Patient patient, LocalDate date, LocalTime time) {
@@ -94,7 +102,23 @@ public class Clinic {
         }
         System.out.println("No appointment found for the given patient and time.");
     }
-
+    
+    public void attendAppointment(Patient patient, LocalDate date, LocalTime time) {
+        for (Physiotherapist physio : physiotherapist) {
+            for (Appointment appointment : physio.timetable.getAppointment(date)) {
+                if (appointment.time.equals(time)
+                        && appointment.patient != null
+                        && appointment.patient.equals(patient)) {
+                    appointment.attend();
+                    System.out.println("Appointment attended successfully!");
+                    return;
+                }
+            }
+        }
+        System.out.println("No appointment found for the given patient and time.");
+    }
+    
+   
     public void generateReport() {
         System.out.println("\n--- Appointment Report ---");
         for (Physiotherapist physio : physiotherapist) {

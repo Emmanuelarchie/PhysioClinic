@@ -9,7 +9,6 @@ import java.time.LocalTime;
  * @author emman
  */
 public class Appointment {
-    
      String treatmentName; 
      LocalTime time; 
      Patient patient; 
@@ -19,6 +18,19 @@ public class Appointment {
     this.treatmentName = treatmentName;
     this.time = time;
     this.status = "available";
+     }
+     
+////   public boolean book(Patient patient) {
+////        if ("available".equalsIgnoreCase(this.status)) {
+////            this.patient = patient;
+////            this.status = "booked";
+//            
+//        }
+//        return false;
+//    }
+     
+     public String getStatus(){
+         return status;
      }
      
      public void book(Patient patient) {
@@ -46,4 +58,5 @@ public void attend() {
      
 }
 
+    
 
