@@ -25,9 +25,16 @@ public class ClinicTest {
     public void testGetAllPatients() {
         System.out.println("getAllPatients");
         Clinic instance = new Clinic();
-        List<Patient> expResult = null;
+        Patient expectedPatient = new Patient("Rebecca Brown", "08023306584", "1 Ibiono Lane, Uyo");
+        instance.addPatient(expectedPatient);
         List<Patient> result = instance.getAllPatients();
-        assertEquals(expResult, result);
+        assertEquals(1, result.size());
+        assertEquals(expectedPatient.getName(), result.get(0).getName());
+        assertEquals(expectedPatient.getPhoneNumber(), result.get(0).getPhoneNumber());
+        assertEquals(expectedPatient.getAddress(), result.get(0).getAddress());
+         
+       
+        
         // TODO review the generated test code and remove the default call to fail.        fail("The test case is a prototype.");
     }
     
